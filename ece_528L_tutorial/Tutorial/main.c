@@ -117,6 +117,16 @@ void LED2_Output(uint8_t led_value)
     P2->OUT = (P2->OUT & 0xF8) | (led_value & 0x07);
 }
 
+uint8_t LED1_Status(){
+    uint8_t LED1_Status = P1->OUT  & 0x01;
+    return LED1_Status;
+}
+
+uint8_t LED2_Status() {
+    uint8_t LED2_Status = P2->OUT & 0x07;
+    return LED2_Status;
+}
+
 int main(void)
 {
     // Initialize the 48 MHz Clock
@@ -130,10 +140,14 @@ int main(void)
     {
         LED1_Output(RED_LED_ON);
         LED2_Output(RGB_LED_GREEN);
+        uint8_t LED1_Value = LED1_Status();
+        uint8_t LED2_Value = LED2_Status();
         Clock_Delay1ms(1000);
 
         LED1_Output(RED_LED_OFF);
         LED2_Output(RGB_LED_OFF);
+        LED1_Value = LED1_Status();
+        LED2_Value = LED2_Status();
         Clock_Delay1ms(1000);
     }
 }
